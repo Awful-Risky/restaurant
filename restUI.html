@@ -1,0 +1,89 @@
+ <!--restUI.html -->
+
+
+<!DOCTYPE html>
+<html ng-app="restUI">
+<head>
+	<title>RestUI</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js"></script>
+	<script type="text/javascript" src="restUI.js"></script>
+	<link rel="stylesheet" type="text/css" href="restUI.css">
+
+</head>
+<body ng-controller= "appController">
+	
+	<div class="restBackground">
+
+		<div class="menus">
+
+			<div class="userPreferencesBox">
+				<form class="questions">Vegan?
+					<input data-ng-model="myCustomer.vegan" type="radio" data-ng-value="true">Yes</input>
+					<input data-ng-model="myCustomer.vegan" type="radio" data-ng-value="false">No</input>
+					<br>
+				Gluten Free? 
+					<input data-ng-model="myCustomer.glutenFree" type="radio" data-ng-value="true">Yes</input>
+					<input data-ng-model="myCustomer.glutenFree" type="radio" data-ng-value="false">No</input>
+					<br>
+
+				Citrus Free?
+					<input data-ng-model="myCustomer.citrusFree" type="radio" data-ng-value="true">Yes</input>
+					<input data-ng-model="myCustomer.citrusFree" type="radio" data-ng-value="false">No</input>
+					<br>
+				</form>
+
+			</div>
+
+			<ul>
+				<h3>Drink Menu</h3>
+				<li ng-click = "menuDrinkClick(drink)" ng-repeat="drink in myRestaurant.drinkMenu.menuArray">
+					<span ng-class="{green: isCompatible(drink)==true, black: isCompatible(drink) == false}">
+					{{drink.stringify()}}
+					</span>
+					<br/><br/>
+				</li>
+			</ul>
+
+			<ul>
+				<h3 >Chewable Menu</h3>
+				<li  ng-click = "menuPlateClick(plate)" ng-repeat="plate in myRestaurant.foodMenu.menuArray">
+					
+				<!---check each plate compatibililty ahtne adjust class-->
+
+					<span ng-class="{green: isCompatible(plate)==true, black: isCompatible(plate) == false}">{{plate.stringify()}}</span>
+					
+					<br/><br/>
+				</li>
+			</ul>
+
+
+				<ul>
+					<h3>My Order</h3>
+					<li ng-click="removeItem($index,item)" ng-repeat="item in myOrder.orderArray">
+						<!--could also have used track by $index-->
+
+						<span ng-class="{green: isCompatible(item)==true, red: isCompatible(item) == false}">
+
+						{{item.name}}
+						<br><br>
+						</span>
+					</li>
+				</ul>
+
+				<span ng-show="runningTotal">
+					<h4>Total: ${{runningTotal.toFixed(2)}}</h4>
+				</span>
+
+		</div>
+
+	</div>
+</body>
+
+</html>
+
+
+<!---
+	
+
+
